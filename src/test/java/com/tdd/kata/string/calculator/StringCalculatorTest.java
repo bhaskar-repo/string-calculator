@@ -73,4 +73,14 @@ public class StringCalculatorTest {
         .hasMessage("negatives not allowed");
   }
 
+  @Test
+  public void givenNumbers_withMultipleNegativeNumbers_shouldThrow() {
+    //given
+    String numbers = "//;\n-1;-2";
+    //when & //then
+    assertThatThrownBy(() -> stringCalculator.add(numbers))
+        .isInstanceOf(RuntimeException.class)
+        .hasMessage("negatives not allowed =-1,-2");
+  }
+
 }
