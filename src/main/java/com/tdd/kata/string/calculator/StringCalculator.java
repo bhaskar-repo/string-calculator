@@ -1,6 +1,9 @@
 package com.tdd.kata.string.calculator;
 
+import com.tdd.kata.string.calculator.exception.NegativeNumberException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +16,17 @@ public class StringCalculator {
     if (inputString.length() == 1) {
       return Integer.parseInt(inputString);
     }
+    List<Integer> inputNumbers = getInputNumbers(inputString);
+    List<Integer> negativeNumbers = inputNumbers.stream()
+        .filter(number -> number < 0)
+        .collect(Collectors.toList());
+    if (negativeNumbers.size() == 1) {
+      throw new NegativeNumberException("negatives not allowed");
+    }
+    return inputNumbers.stream().reduce(0, Integer::sum);
+  }
+
+  private List<Integer> getInputNumbers(String inputString) {
     String[] inputNumbers = inputString.split(",|\n");
     if (inputString.startsWith("//")) {
       StringBuilder stringBuilder = new StringBuilder();
@@ -22,7 +36,7 @@ public class StringCalculator {
     }
     return Arrays.stream(inputNumbers)
         .filter(stringNumber -> !stringNumber.isEmpty())
-        .mapToInt(Integer::parseInt)
-        .sum();
+        .map(Integer::parseInt)
+        .collect(Collectors.toList());
   }
 }
