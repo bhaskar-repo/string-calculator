@@ -1,7 +1,9 @@
 package com.tdd.kata.string.calculator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.tdd.kata.string.calculator.exception.NegativeNumberException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -59,6 +61,16 @@ public class StringCalculatorTest {
     String numbers = "//;\n1;2";
     //when & //then
     assertThat(stringCalculator.add(numbers)).isEqualTo(3);
+  }
+
+  @Test
+  public void givenNumbers_withSingleNegativeNumber_shouldThrow() {
+    //given
+    String numbers = "//;\n1;-2";
+    //when & //then
+    assertThatThrownBy(() -> stringCalculator.add(numbers))
+        .isInstanceOf(NegativeNumberException.class)
+        .hasMessage("negatives not allowed");
   }
 
 }
