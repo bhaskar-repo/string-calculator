@@ -45,4 +45,12 @@ public class StringCalculatorTest {
     assertThat(stringCalculator.add(multipleNumbers)).isEqualTo(55);
   }
 
+  @Test
+  public void givenNewLineOrCommaSeparatedNumbers_shouldBeAdded() {
+    //given
+    String numbers = "1\n2,3";
+    //when & //then
+    assertThat(stringCalculator.add(numbers)).isEqualTo(6);
+  }
+
 }
