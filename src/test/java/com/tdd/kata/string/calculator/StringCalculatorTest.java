@@ -107,4 +107,12 @@ public class StringCalculatorTest {
     assertThat(stringCalculator.add(numbers)).isEqualTo(6);
   }
 
+  @Test
+  public void givenNumbers_withMultipleDelimitersOfAnyLength_shouldBeAdded() {
+    //given
+    String numbers = "//[****][%%%%%]\n1*2%3";
+    //when & //then
+    assertThat(stringCalculator.add(numbers)).isEqualTo(6);
+  }
+
 }
