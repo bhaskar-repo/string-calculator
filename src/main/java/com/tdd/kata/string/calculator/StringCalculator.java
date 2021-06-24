@@ -16,7 +16,7 @@ public class StringCalculator {
     if (inputString.length() == 1) {
       return Integer.parseInt(inputString);
     }
-    List<Integer> inputNumbers = getInputNumbers(inputString);
+    List<Integer> inputNumbers = getInputNumbersFromInputString(inputString);
     List<Integer> negativeNumbers = inputNumbers.stream()
         .filter(number -> number < 0)
         .collect(Collectors.toList());
@@ -34,23 +34,37 @@ public class StringCalculator {
     }
   }
 
-  private List<Integer> getInputNumbers(String inputString) {
-    
-    return Arrays.stream(getInputNumbersByDelimiter(inputString))
+  private List<Integer> getInputNumbersFromInputString(String inputString) {
+
+    return Arrays.stream(splitInputString(inputString))
         .filter(stringNumber -> !stringNumber.isEmpty())
         .map(Integer::parseInt)
         .filter(number -> number <= 1000)
         .collect(Collectors.toList());
   }
 
-  private String[] getInputNumbersByDelimiter(String inputString) {
+  private String[] splitInputString(String inputString) {
     String[] inputNumbers = inputString.split(",|\n");
     if (inputString.startsWith("//")) {
-      StringBuilder stringBuilder = new StringBuilder();
       String[] delimiters = inputString.split("\n");
-      String regex = stringBuilder.append(delimiters[0].replace("//", "")).toString();
-      inputNumbers = delimiters[1].split(regex);
+      inputNumbers = delimiters[1].split(returnRegexBasedOnDelimiter(delimiters[0]));
     }
     return inputNumbers;
+  }
+
+  private String returnRegexBasedOnDelimiter(String delimiter) {
+
+    StringBuilder stringBuilder = new StringBuilder();
+    String[] multipleDelimiters = delimiter.replace("//", "").split("]");
+    if (multipleDelimiters.length == 1) {
+      return multipleDelimiters[0].length() == 1 ?
+          stringBuilder.append(multipleDelimiters[0]).toString() :
+          stringBuilder.append(multipleDelimiters[0]).append("]+").toString();
+    }
+    Arrays.stream(multipleDelimiters)
+        .map(individualDelimiter -> individualDelimiter + "]+|")
+        .forEach(stringBuilder::append);
+
+    return stringBuilder.toString();
   }
 }
