@@ -37,4 +37,12 @@ public class StringCalculatorTest {
     assertThat(stringCalculator.add(twoNumbers)).isEqualTo(3);
   }
 
+  @Test
+  public void givenCommaSeparatedString_withUnknownAmountOfNumbers_shouldBeAdded() {
+    //given
+    String multipleNumbers = "1,2,3,4,5,6,7,8,9,10";
+    //when & //then
+    assertThat(stringCalculator.add(multipleNumbers)).isEqualTo(55);
+  }
+
 }
