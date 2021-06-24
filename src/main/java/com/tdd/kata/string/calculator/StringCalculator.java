@@ -13,12 +13,8 @@ public class StringCalculator {
     if (inputString.length() == 1) {
       return Integer.parseInt(inputString);
     }
-    String [] inputNumbers = inputString.split(",");
-    if (inputNumbers.length == 2) {
-      return Arrays.stream(inputNumbers)
-          .mapToInt(Integer::parseInt)
-          .sum();
-    }
-    return -1;
+    return Arrays.stream(inputString.split(","))
+        .mapToInt(Integer::parseInt)
+        .sum();
   }
 }
