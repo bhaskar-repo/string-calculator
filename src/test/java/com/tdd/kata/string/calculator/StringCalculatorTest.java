@@ -21,4 +21,12 @@ public class StringCalculatorTest {
     assertThat(stringCalculator.add(emptyString)).isZero();
   }
 
+  @Test
+  public void givenString_havingSingleNumber_shouldReturnSameNumber() {
+    //given
+    String singleNumber = "1";
+    //when & //then
+    assertThat(stringCalculator.add(singleNumber)).isEqualTo(Integer.parseInt(singleNumber));
+  }
+
 }
