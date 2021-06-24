@@ -29,4 +29,12 @@ public class StringCalculatorTest {
     assertThat(stringCalculator.add(singleNumber)).isEqualTo(Integer.parseInt(singleNumber));
   }
 
+  @Test
+  public void givenCommaSeparatedString_withTwoNumbers_shouldBeAdded () {
+    //given
+    String twoNumbers = "1,2";
+    //when & //then
+    assertThat(stringCalculator.add(twoNumbers)).isEqualTo(3);
+  }
+
 }
