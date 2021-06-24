@@ -22,7 +22,7 @@ public class StringCalculator {
         .collect(Collectors.toList());
 
     validateNegativeNumbers(negativeNumbers);
-    
+
     return inputNumbers.stream().reduce(0, Integer::sum);
   }
 
@@ -35,6 +35,15 @@ public class StringCalculator {
   }
 
   private List<Integer> getInputNumbers(String inputString) {
+    
+    return Arrays.stream(getInputNumbersByDelimiter(inputString))
+        .filter(stringNumber -> !stringNumber.isEmpty())
+        .map(Integer::parseInt)
+        .filter(number -> number <= 1000)
+        .collect(Collectors.toList());
+  }
+
+  private String[] getInputNumbersByDelimiter(String inputString) {
     String[] inputNumbers = inputString.split(",|\n");
     if (inputString.startsWith("//")) {
       StringBuilder stringBuilder = new StringBuilder();
@@ -42,9 +51,6 @@ public class StringCalculator {
       String regex = stringBuilder.append(delimiters[0].replace("//", "")).toString();
       inputNumbers = delimiters[1].split(regex);
     }
-    return Arrays.stream(inputNumbers)
-        .filter(stringNumber -> !stringNumber.isEmpty())
-        .map(Integer::parseInt)
-        .collect(Collectors.toList());
+    return inputNumbers;
   }
 }
