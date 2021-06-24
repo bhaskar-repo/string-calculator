@@ -83,4 +83,12 @@ public class StringCalculatorTest {
         .hasMessage("negatives not allowed =[-1, -2]");
   }
 
+  @Test
+  public void givenNumbersBiggerThan1000_shouldBeIgnored() {
+    //given
+    String numbers = "2,1001";
+    //when & //then
+    assertThat(stringCalculator.add(numbers)).isEqualTo(2);
+  }
+
 }
