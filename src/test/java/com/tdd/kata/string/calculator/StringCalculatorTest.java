@@ -14,7 +14,7 @@ public class StringCalculatorTest {
   private StringCalculator stringCalculator;
 
   @Test
-  public void givenAnEmptyString_shouldReturn0() {
+  public void givenAnEmptyStringsShouldReturn0() {
     //given
     String emptyString = "";
     //when & //then
