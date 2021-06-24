@@ -53,4 +53,12 @@ public class StringCalculatorTest {
     assertThat(stringCalculator.add(numbers)).isEqualTo(6);
   }
 
+  @Test
+  public void givenNumbers_withDelimiterOtherThanCommaAndNewLine_shouldBeAdded() {
+    //given
+    String numbers = "//;\n1;2";
+    //when & //then
+    assertThat(stringCalculator.add(numbers)).isEqualTo(3);
+  }
+
 }
