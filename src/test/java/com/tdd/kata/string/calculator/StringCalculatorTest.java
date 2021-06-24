@@ -80,7 +80,7 @@ public class StringCalculatorTest {
     //when & //then
     assertThatThrownBy(() -> stringCalculator.add(numbers))
         .isInstanceOf(RuntimeException.class)
-        .hasMessage("negatives not allowed =-1,-2");
+        .hasMessage("negatives not allowed =[-1, -2]");
   }
 
 }

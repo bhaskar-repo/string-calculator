@@ -20,10 +20,18 @@ public class StringCalculator {
     List<Integer> negativeNumbers = inputNumbers.stream()
         .filter(number -> number < 0)
         .collect(Collectors.toList());
-    if (negativeNumbers.size() == 1) {
-      throw new NegativeNumberException("negatives not allowed");
-    }
+
+    validateNegativeNumbers(negativeNumbers);
+    
     return inputNumbers.stream().reduce(0, Integer::sum);
+  }
+
+  private void validateNegativeNumbers(List<Integer> negativeNumbers) {
+    if (!negativeNumbers.isEmpty()) {
+      String errorMessage = negativeNumbers.size() == 1 ? "negatives not allowed"
+          : "negatives not allowed =" + negativeNumbers.toString();
+      throw new NegativeNumberException(errorMessage);
+    }
   }
 
   private List<Integer> getInputNumbers(String inputString) {
