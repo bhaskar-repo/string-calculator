@@ -9,6 +9,9 @@ public class StringCalculator {
     if (inputString.isEmpty()) {
       return 0;
     }
+    if (inputString.length() == 1) {
+      return Integer.parseInt(inputString);
+    }
     return -1;
   }
 }
